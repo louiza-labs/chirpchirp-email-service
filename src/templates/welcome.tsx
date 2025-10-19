@@ -91,21 +91,6 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
             </Button>
           </Section>
 
-          {/* Tips Section */}
-          <Section style={tipsSection}>
-            <Text style={tipsTitle}>🌟 Pro Tips</Text>
-            <Text style={tipText}>
-              • Check your camera angles and battery regularly for best results
-            </Text>
-            <Text style={tipText}>
-              • Early morning and late afternoon typically have the most
-              activity
-            </Text>
-            <Text style={tipText}>
-              • Keep feeders filled to attract more diverse species
-            </Text>
-          </Section>
-
           {/* Footer */}
           <Hr style={hr} />
           <Text style={footer}>
