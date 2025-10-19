@@ -134,7 +134,7 @@ export const sendDailySummaryEmail = async (
   const summaryData = await fetchDailySummaryData(supabase);
 
   const { data, error } = await resend.emails.send({
-    from: "ChirpChirp Daily <daily@chirpchirp.app>",
+    from: "ChirpChirp Daily <joe@louiza.xyz>",
     to,
     subject: `Your Daily Bird Summary - ${summaryData.newPicturesCount} New Sightings!`,
     react: DailySummaryEmail(summaryData),
@@ -152,7 +152,7 @@ export const sendSpecialSightingEmail = async (
   resend: Resend
 ) => {
   const { data, error } = await resend.emails.send({
-    from: "ChirpChirp Alerts <alerts@chirpchirp.app>",
+    from: "ChirpChirp Alerts <joe@louiza.xyz>",
     to,
     subject: `🎉 New Species Alert: ${species} spotted!`,
     react: SpecialSightingEmail({ species, imageUrl, confidence }),
@@ -168,7 +168,7 @@ export const sendWelcomeEmail = async (
   resend: Resend
 ) => {
   const { data, error } = await resend.emails.send({
-    from: "ChirpChirp <hello@chirpchirp.app>",
+    from: "ChirpChirp <joe@louiza.xyz>",
     to,
     subject: "Welcome to ChirpChirp! 🐦",
     react: WelcomeEmail({ name }),
