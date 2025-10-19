@@ -26,23 +26,55 @@ const app = new Elysia()
   // Health check
   .get("/", () => ({ status: "ok", service: "email-service" }))
 
-  // Send daily summary email
+  // Send daily summary email to all active subscribers
   .post("/send/daily-summary", async ({ body }) => {
     try {
-      const { email } = body as { email: string };
+      // Fetch all active daily summary subscribers
+      const { data: emailsList, error: dbError } = await supabase
+        .from("email_subscriptions")
+        .select("email")
+        .eq("is_active", true)
+        .eq("daily_summary_enabled", true);
 
-      if (!email) {
+      if (dbError) {
+        console.error("Database error:", dbError);
         return {
-          error: "Email is required",
-          status: 400,
+          error: "Failed to fetch subscribers",
+          status: 500,
         };
       }
 
-      const result = await sendDailySummaryEmail(email, supabase, resend);
+      if (!emailsList || emailsList.length === 0) {
+        return {
+          success: true,
+          message: "No active subscribers found",
+          count: 0,
+        };
+      }
+
+      // Send emails to all subscribers
+      const emailPromises = emailsList.map((subscriber) =>
+        sendDailySummaryEmail(subscriber.email, supabase, resend)
+      );
+
+      const emailResults = await Promise.allSettled(emailPromises);
+
+      const successful = emailResults.filter(
+        (r) => r.status === "fulfilled"
+      ).length;
+      const failed = emailResults.filter((r) => r.status === "rejected").length;
+
+      console.log("Daily summary results:", {
+        total: emailsList.length,
+        successful,
+        failed,
+      });
 
       return {
         success: true,
-        messageId: result.id,
+        total: emailsList.length,
+        successful,
+        failed,
       };
     } catch (error) {
       console.error("Error sending daily summary:", error);
@@ -91,8 +123,8 @@ const app = new Elysia()
     }
   })
 
-  // Send welcome email when user subscribes
-  .post("/send/welcome", async ({ body }) => {
+  // Handle Subscriptions
+  .post("/subscribe", async ({ body }) => {
     try {
       const { email, name } = body as { email: string; name?: string };
 
@@ -103,16 +135,87 @@ const app = new Elysia()
         };
       }
 
+      // Insert/update subscriber in database with error checking
+      // Note: email column has UNIQUE constraint, so duplicates are prevented
+      const { data: subscription, error: dbError } = await supabase
+        .from("email_subscriptions")
+        .upsert({
+          email,
+          name,
+          is_active: true, // Ensure resubscribes are set to active
+        })
+        .select()
+        .single();
+
+      if (dbError) {
+        console.error("Database error:", dbError);
+        return {
+          error: "Failed to add subscription",
+          status: 500,
+        };
+      }
+
+      // Send welcome email
       const result = await sendWelcomeEmail(email, name, resend);
 
       return {
         success: true,
         messageId: result.id,
+        subscriptionId: subscription.id,
       };
     } catch (error) {
-      console.error("Error sending welcome email:", error);
+      console.error("Error in subscribe endpoint:", error);
       return {
-        error: "Failed to send welcome email",
+        error: "Failed to process subscription",
+        status: 500,
+      };
+    }
+  })
+
+  // Handle Unsubscribe
+  .post("/unsubscribe", async ({ body }) => {
+    try {
+      const { email } = body as { email: string };
+
+      if (!email) {
+        return {
+          error: "Email is required",
+          status: 400,
+        };
+      }
+
+      // Set user as inactive instead of deleting (maintains audit trail)
+      const { data: subscription, error: dbError } = await supabase
+        .from("email_subscriptions")
+        .update({ is_active: false })
+        .eq("email", email)
+        .select()
+        .single();
+
+      if (dbError) {
+        console.error("Database error:", dbError);
+        return {
+          error: "Failed to unsubscribe",
+          status: 500,
+        };
+      }
+
+      if (!subscription) {
+        return {
+          error: "Email not found in subscriptions",
+          status: 404,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Successfully unsubscribed",
+        email: subscription.email,
+      };
+    } catch (error) {
+      console.error("Error in unsubscribe endpoint:", error);
+      return {
+        error: "Failed to process unsubscribe",
         status: 500,
       };
     }
