@@ -163,7 +163,7 @@ const app = new Elysia()
     }
   })
 
-  .listen(3001);
+  .listen(8080);
 
 console.log(
   `🦊 Email Service is running at ${app.server?.hostname}:${app.server?.port}`
