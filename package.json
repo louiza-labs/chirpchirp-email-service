@@ -6,9 +6,15 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@react-email/components": "^0.5.7",
+    "@supabase/supabase-js": "^2.75.1",
+    "elysia": "latest",
+    "react": "^19.2.0",
+    "react-email": "^4.3.1",
+    "resend": "^6.2.0"
   },
   "devDependencies": {
+    "@types/react": "^19.2.2",
     "bun-types": "latest"
   },
   "module": "src/index.js"
