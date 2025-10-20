@@ -22,9 +22,7 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>
-        Welcome to ChirpChirp - Your bird watching journey begins!
-      </Preview>
+      <Preview>Welcome to ChirpChirp!</Preview>
       <Body style={main}>
         <Container style={container}>
           {/* Header */}
@@ -39,7 +37,7 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
 
             <Text style={paragraph}>
               Thank you for subscribing to ChirpChirp email updates! We're
-              excited to share the wonderful world of birds with you.
+              excited to share some fun bird pictures with you
             </Text>
 
             <Text style={paragraph}>
@@ -48,7 +46,6 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
 
             <Section style={featureList}>
               <div style={featureItem}>
-                <Text style={featureIcon}>📊</Text>
                 <div>
                   <Text style={featureTitle}>Daily Summaries</Text>
                   <Text style={featureDescription}>
@@ -59,7 +56,6 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
               </div>
 
               <div style={featureItem}>
-                <Text style={featureIcon}>🎉</Text>
                 <div>
                   <Text style={featureTitle}>Special Sightings</Text>
                   <Text style={featureDescription}>
@@ -70,7 +66,6 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
               </div>
 
               <div style={featureItem}>
-                <Text style={featureIcon}>📸</Text>
                 <div>
                   <Text style={featureTitle}>Activity Highlights</Text>
                   <Text style={featureDescription}>
@@ -86,8 +81,8 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
               activity!) and instant alerts when we spot something special.
             </Text>
 
-            <Button style={button} href="https://chirpchirp.app">
-              View Your Dashboard
+            <Button style={button} href="https://chirpchirp-ui.vercel.app/">
+              Explore!
             </Button>
           </Section>
 
@@ -166,7 +161,8 @@ const featureList = {
 
 const featureItem = {
   display: "flex",
-  gap: "16px",
+  gap: "20px",
+  columnGap: "8px",
   marginBottom: "24px",
   alignItems: "flex-start",
 };

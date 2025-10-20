@@ -127,6 +127,7 @@ const app = new Elysia()
   .post("/subscribe", async ({ body }) => {
     try {
       const { email, name } = body as { email: string; name?: string };
+      console.log("the email, name", { email, name });
 
       if (!email) {
         return {
