@@ -58,22 +58,9 @@ The service will start on **http://localhost:3001**
 Send a welcome email:
 
 ```bash
-curl -X POST http://localhost:3001/send/welcome \
+curl -X POST http://localhost:3001/email/send/welcome \
   -H "Content-Type: application/json" \
   -d '{"email": "your@email.com", "name": "Your Name"}'
-```
-
-Send a special sighting alert:
-
-```bash
-curl -X POST http://localhost:3001/send/special-sighting \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "your@email.com",
-    "species": "Blue Jay",
-    "imageUrl": "https://example.com/image.jpg",
-    "confidence": 0.95
-  }'
 ```
 
 ## 📧 Preview Email Templates
@@ -92,7 +79,7 @@ This opens a browser at `http://localhost:3000` with live preview of all templat
 
 ```typescript
 // When a new user signs up for email alerts
-await fetch("http://localhost:3001/send/welcome", {
+await fetch("http://localhost:3001/email/send/welcome", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -102,25 +89,15 @@ await fetch("http://localhost:3001/send/welcome", {
 });
 
 // When detecting a first-time species
-await fetch("http://localhost:3001/send/special-sighting", {
+await fetch("http://localhost:3001/email/send/special-sighting", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    email: user.email,
     species: "Northern Cardinal",
     imageUrl: image.image_url,
     confidence: 0.96,
   }),
 });
-```
-
-### Schedule Daily Summaries
-
-Add to your cron or scheduler:
-
-```bash
-# Run at 8 AM daily
-curl -X POST http://localhost:3001/trigger/daily-summaries
 ```
 
 ## 🎨 Customizing Email Templates
@@ -168,11 +145,9 @@ Or via Supabase client in your core API.
   - Welcome Email (onboarding)
 
 - **5 API Endpoints:**
-  - `GET /` - Health check
-  - `POST /send/daily-summary` - Send daily recap
-  - `POST /send/special-sighting` - Alert for new species
-  - `POST /send/welcome` - Onboarding email
-  - `POST /trigger/daily-summaries` - Send to all subscribers
+  - `POST /email/send/daily-summary` - Send daily recap
+  - `POST /email/send/special-sighting` - Alert for new species
+  - `POST /email/send/welcome` - Onboarding email
 
 - **Database Setup:**
   - Email subscriptions table

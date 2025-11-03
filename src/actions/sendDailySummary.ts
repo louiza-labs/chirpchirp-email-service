@@ -1,12 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
-import { DailySummaryEmail } from "./templates/daily-summary";
-import { SpecialSightingEmail } from "./templates/special-sighting";
-import { WelcomeEmail } from "./templates/welcome";
-
-// ============================================================================
-// Data Fetching Functions
-// ============================================================================
+import { DailySummaryEmail } from "../templates/daily-summary";
 
 interface DailySummaryData {
   newPicturesCount: number;
@@ -134,40 +128,6 @@ export const sendDailySummaryEmail = async (
     to,
     subject: `Your Daily Bird Summary - ${summaryData.newPicturesCount} New Sightings!`,
     react: DailySummaryEmail(summaryData),
-  });
-
-  if (error) throw error;
-  return data;
-};
-
-export const sendSpecialSightingEmail = async (
-  to: string,
-  species: string,
-  imageUrl: string,
-  confidence: number,
-  resend: Resend
-) => {
-  const { data, error } = await resend.emails.send({
-    from: "ChirpChirp Alerts <joe@louiza.xyz>",
-    to,
-    subject: `🎉 New Species Alert: ${species} spotted!`,
-    react: SpecialSightingEmail({ species, imageUrl, confidence }),
-  });
-
-  if (error) throw error;
-  return data;
-};
-
-export const sendWelcomeEmail = async (
-  to: string,
-  name: string | undefined,
-  resend: Resend
-) => {
-  const { data, error } = await resend.emails.send({
-    from: "ChirpChirp <joe@louiza.xyz>",
-    to,
-    subject: "Welcome to ChirpChirp! 🐦",
-    react: WelcomeEmail({ name }),
   });
 
   if (error) throw error;
