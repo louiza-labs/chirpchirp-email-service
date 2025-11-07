@@ -30,14 +30,21 @@ export const SpecialSightingEmail = ({
     <Html>
       <Head />
       <Preview>
-        🎉 New species alert! We just spotted a {species} for the first time!
+        ChirpChirp alert • First-time sighting confirmed: {species}
       </Preview>
       <Body style={main}>
         <Container style={container}>
           {/* Header with celebration */}
-          <Section style={celebrationBanner}>
-            <Text style={celebrationEmoji}>🎉🐦✨</Text>
-            <Heading style={h1}>New Species Spotted!</Heading>
+          <Section style={celebrationSection}>
+            <div style={celebrationBanner}>
+              <Text style={celebrationEmoji}>🎉🐦✨</Text>
+              <Heading style={h1}>First-time visitor confirmed</Heading>
+              <Text style={celebrationCopy}>
+                Our classifiers just verified a brand-new species in your
+                feed. Take a closer look and log the sighting while the details
+                are fresh.
+              </Text>
+            </div>
           </Section>
 
           {/* Main Content */}
@@ -47,6 +54,12 @@ export const SpecialSightingEmail = ({
             </div>
 
             <Heading style={speciesName}>{species}</Heading>
+
+            <Text style={leadInText}>
+              Captured in crisp detail and validated with high confidence. We
+              saved the original file so you can tag it or share it with your
+              local birding community.
+            </Text>
 
             <Img src={imageUrl} alt={species} style={mainImage} />
 
@@ -58,36 +71,37 @@ export const SpecialSightingEmail = ({
               <div style={infoDivider} />
               <div style={infoItem}>
                 <Text style={infoLabel}>Status</Text>
-                <Text style={infoValue}>New Species! 🆕</Text>
+                <Text style={infoValue}>New to your catalog 🆕</Text>
               </div>
             </Section>
 
             <Text style={description}>
-              This is the first time we've identified a{" "}
-              <strong>{species}</strong> in your camera feed! This is an
-              exciting addition to your bird watching collection.
+              Add notes, confirm the location, or mark the sighting as a
+              favorite. Every interaction helps ChirpChirp fine-tune alerts for
+              future visitors.
             </Text>
 
             <Button style={button} href="https://chirpchirp.app/gallery">
-              View Full Gallery
+              Review this sighting
             </Button>
           </Section>
 
           {/* Fun Facts Section */}
           <Section style={funFactSection}>
-            <Text style={funFactTitle}>🔍 Did You Know?</Text>
+            <Text style={funFactTitle}>🔍 Field note</Text>
             <Text style={funFactText}>
-              Each new species you spot adds to the biodiversity record of your
-              area. Keep watching to see what other visitors drop by!
+              Each confirmed addition enriches the biodiversity record for your
+              area. Log a short note so you can track migration patterns over
+              time.
             </Text>
           </Section>
 
           {/* Footer */}
           <Hr style={hr} />
           <Text style={footer}>
-            You're receiving this email because you have special sighting alerts
-            enabled. We'll notify you whenever we spot a new species for the
-            first time.
+            You're receiving this alert because first-time sightings are enabled
+            in your ChirpChirp notifications. Update your alert cadence anytime
+            from settings.
           </Text>
         </Container>
       </Body>
@@ -97,7 +111,7 @@ export const SpecialSightingEmail = ({
 
 // Styles
 const main = {
-  backgroundColor: "#f6f9fc",
+  backgroundColor: "#eef2f7",
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
 };
@@ -105,32 +119,48 @@ const main = {
 const container = {
   backgroundColor: "#ffffff",
   margin: "0 auto",
-  padding: "20px 0 48px",
+  padding: "32px 0 56px",
   marginBottom: "64px",
-  maxWidth: "600px",
+  maxWidth: "640px",
+  borderRadius: "16px",
+  border: "1px solid #e5e7eb",
+  boxShadow: "0 14px 36px rgba(15, 23, 42, 0.08)",
+  overflow: "hidden" as const,
+};
+
+const celebrationSection = {
+  padding: "0 48px 32px",
 };
 
 const celebrationBanner = {
-  backgroundColor: "#4f46e5",
-  padding: "40px",
+  background: "linear-gradient(135deg, #4338ca, #7c3aed)",
+  padding: "40px 48px",
   textAlign: "center" as const,
+  borderRadius: "16px",
 };
 
 const celebrationEmoji = {
   fontSize: "48px",
-  margin: "0 0 16px 0",
+  margin: "0 0 20px 0",
 };
 
 const h1 = {
   color: "#ffffff",
-  fontSize: "32px",
-  fontWeight: "bold",
-  margin: "0",
+  fontSize: "30px",
+  fontWeight: "700",
+  margin: "0 0 12px",
   textAlign: "center" as const,
 };
 
+const celebrationCopy = {
+  color: "#e0e7ff",
+  fontSize: "16px",
+  lineHeight: "26px",
+  margin: "0",
+};
+
 const contentSection = {
-  padding: "40px",
+  padding: "0 48px",
 };
 
 const badge = {
@@ -151,29 +181,40 @@ const badgeText = {
 };
 
 const speciesName = {
-  color: "#333",
-  fontSize: "36px",
-  fontWeight: "bold",
+  color: "#1f2937",
+  fontSize: "34px",
+  fontWeight: "700",
   margin: "0 0 24px 0",
   textAlign: "center" as const,
+};
+
+const leadInText = {
+  fontSize: "16px",
+  color: "#4b5563",
+  lineHeight: "26px",
+  textAlign: "center" as const,
+  margin: "0 0 28px 0",
 };
 
 const mainImage = {
   width: "100%",
   maxWidth: "520px",
   height: "auto",
-  borderRadius: "12px",
-  marginBottom: "24px",
+  borderRadius: "14px",
+  marginBottom: "28px",
+  border: "1px solid #e2e8f0",
+  boxShadow: "0 12px 28px rgba(15, 23, 42, 0.18)",
 };
 
 const infoBox = {
   display: "flex",
   justifyContent: "space-around",
   alignItems: "center",
-  backgroundColor: "#f9fafb",
-  borderRadius: "8px",
-  padding: "20px",
+  backgroundColor: "#f8fafc",
+  borderRadius: "12px",
+  padding: "24px",
   marginBottom: "24px",
+  border: "1px solid #e2e8f0",
 };
 
 const infoItem = {
@@ -183,16 +224,16 @@ const infoItem = {
 
 const infoLabel = {
   fontSize: "12px",
-  color: "#666",
+  color: "#6b7280",
   margin: "0 0 8px 0",
   textTransform: "uppercase" as const,
   letterSpacing: "0.5px",
 };
 
 const infoValue = {
-  fontSize: "20px",
-  color: "#333",
-  fontWeight: "bold",
+  fontSize: "22px",
+  color: "#1f2937",
+  fontWeight: "700",
   margin: "0",
 };
 
@@ -204,57 +245,58 @@ const infoDivider = {
 
 const description = {
   fontSize: "16px",
-  color: "#555",
-  lineHeight: "24px",
-  marginBottom: "24px",
+  color: "#4b5563",
+  lineHeight: "26px",
+  marginBottom: "28px",
   textAlign: "center" as const,
 };
 
 const button = {
-  backgroundColor: "#4f46e5",
-  borderRadius: "8px",
+  backgroundColor: "#4338ca",
+  borderRadius: "10px",
   color: "#fff",
   fontSize: "16px",
   fontWeight: "600",
   textDecoration: "none",
   textAlign: "center" as const,
   display: "block",
-  padding: "12px 32px",
+  padding: "14px 32px",
   margin: "0 auto",
+  boxShadow: "0 10px 24px rgba(67, 56, 202, 0.35)",
 };
 
 const funFactSection = {
-  backgroundColor: "#f0fdf4",
-  border: "1px solid #bbf7d0",
-  borderRadius: "8px",
-  padding: "24px",
-  margin: "0 40px",
+  backgroundColor: "#f1f5f9",
+  border: "1px solid #dbeafe",
+  borderRadius: "12px",
+  padding: "28px",
+  margin: "0 48px",
 };
 
 const funFactTitle = {
   fontSize: "18px",
   fontWeight: "600",
-  color: "#166534",
+  color: "#1d4ed8",
   margin: "0 0 12px 0",
 };
 
 const funFactText = {
   fontSize: "14px",
-  color: "#166534",
-  lineHeight: "20px",
+  color: "#1e3a8a",
+  lineHeight: "22px",
   margin: "0",
 };
 
 const hr = {
-  borderColor: "#e6ebf1",
-  margin: "30px 40px",
+  borderColor: "#e5e7eb",
+  margin: "36px 48px 24px",
 };
 
 const footer = {
-  color: "#8898aa",
+  color: "#6b7280",
   fontSize: "12px",
-  lineHeight: "16px",
-  padding: "0 40px",
+  lineHeight: "20px",
+  padding: "0 48px",
   textAlign: "center" as const,
 };
 

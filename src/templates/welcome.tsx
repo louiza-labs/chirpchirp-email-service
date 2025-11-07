@@ -22,13 +22,19 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Welcome to ChirpChirp!</Preview>
+      <Preview>ChirpChirp • Your birding updates are ready to take flight</Preview>
       <Body style={main}>
         <Container style={container}>
           {/* Header */}
-          <Section style={header}>
-            <Text style={headerEmoji}>🐦</Text>
-            <Heading style={h1}>Welcome to ChirpChirp!</Heading>
+          <Section style={headerSection}>
+            <div style={headerCard}>
+              <Text style={headerEmoji}>🐦</Text>
+              <Heading style={h1}>Welcome to ChirpChirp</Heading>
+              <Text style={headerCopy}>
+                A smarter way to monitor your feeders, discover new visitors,
+                and stay organized with polished photo digests.
+              </Text>
+            </div>
           </Section>
 
           {/* Main Content */}
@@ -36,21 +42,20 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
             <Text style={greetingStyle}>{greeting}! 👋</Text>
 
             <Text style={paragraph}>
-              Thank you for subscribing to ChirpChirp email updates! We're
-              excited to share some fun bird pictures with you
+              Thanks for subscribing to ChirpChirp updates. We&apos;ll pair the
+              insights from your cameras with handcrafted summaries so you can
+              celebrate every visit without sifting through raw footage.
             </Text>
 
-            <Text style={paragraph}>
-              You're now signed up to receive notifications about:
-            </Text>
+            <Text style={paragraph}>Here&apos;s what to expect:</Text>
 
             <Section style={featureList}>
               <div style={featureItem}>
                 <div>
                   <Text style={featureTitle}>Daily Summaries</Text>
                   <Text style={featureDescription}>
-                    Get a beautiful recap of all bird sightings, species counts,
-                    and a gallery of the day's best photos
+                    Receive a polished digest each morning with standout photos,
+                    species totals, and quick links back to your dashboard.
                   </Text>
                 </div>
               </div>
@@ -59,8 +64,8 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
                 <div>
                   <Text style={featureTitle}>Special Sightings</Text>
                   <Text style={featureDescription}>
-                    Be the first to know when we spot a new species for the very
-                    first time
+                    Get instant alerts when our models confirm a first-time
+                    visitor, complete with confidence ratings and imagery.
                   </Text>
                 </div>
               </div>
@@ -69,33 +74,32 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
                 <div>
                   <Text style={featureTitle}>Activity Highlights</Text>
                   <Text style={featureDescription}>
-                    See timelines of bird activity and discover when your
-                    feathered friends are most active
+                    Track peak feeding windows and view curated timelines to
+                    understand how activity shifts throughout the week.
                   </Text>
                 </div>
               </div>
             </Section>
 
             <Text style={paragraph}>
-              We'll send you a daily summary each morning (when there's
-              activity!) and instant alerts when we spot something special.
+              We&apos;ll send a daily round-up when there&apos;s activity and prompt
+              alerts when something rare appears so you never miss a moment.
             </Text>
 
             <Button style={button} href="https://chirpchirp-ui.vercel.app/">
-              Explore!
+              Visit your dashboard
             </Button>
           </Section>
 
           {/* Footer */}
           <Hr style={hr} />
           <Text style={footer}>
-            Questions or feedback? Just reply to this email - we'd love to hear
-            from you!
+            Questions or feedback? Reply directly to this email — we&apos;re always
+            listening.
           </Text>
           <Text style={footer}>
             Happy bird watching! 🐦
-            <br />
-            The ChirpChirp Team
+            <br />The ChirpChirp Team
           </Text>
         </Container>
       </Body>
@@ -105,7 +109,7 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
 
 // Styles
 const main = {
-  backgroundColor: "#f6f9fc",
+  backgroundColor: "#eef2f7",
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
 };
@@ -113,50 +117,66 @@ const main = {
 const container = {
   backgroundColor: "#ffffff",
   margin: "0 auto",
-  padding: "20px 0 48px",
+  padding: "32px 0 56px",
   marginBottom: "64px",
-  maxWidth: "600px",
+  maxWidth: "640px",
+  borderRadius: "16px",
+  border: "1px solid #e5e7eb",
+  boxShadow: "0 14px 36px rgba(15, 23, 42, 0.06)",
+  overflow: "hidden" as const,
 };
 
-const header = {
-  backgroundColor: "#4f46e5",
-  padding: "40px",
+const headerSection = {
+  padding: "0 48px 32px",
+};
+
+const headerCard = {
+  background: "linear-gradient(135deg, #4338ca, #6366f1)",
+  padding: "40px 48px",
   textAlign: "center" as const,
+  borderRadius: "16px",
 };
 
 const headerEmoji = {
   fontSize: "64px",
-  margin: "0 0 16px 0",
+  margin: "0 0 20px 0",
 };
 
 const h1 = {
   color: "#ffffff",
   fontSize: "32px",
-  fontWeight: "bold",
-  margin: "0",
+  fontWeight: "700",
+  margin: "0 0 12px",
   textAlign: "center" as const,
 };
 
+const headerCopy = {
+  color: "#e0e7ff",
+  fontSize: "16px",
+  lineHeight: "26px",
+  margin: "0",
+};
+
 const contentSection = {
-  padding: "40px",
+  padding: "0 48px",
 };
 
 const greetingStyle = {
   fontSize: "20px",
-  color: "#333",
+  color: "#1f2937",
   fontWeight: "600",
-  marginBottom: "20px",
+  marginBottom: "24px",
 };
 
 const paragraph = {
   fontSize: "16px",
-  color: "#555",
-  lineHeight: "24px",
-  marginBottom: "16px",
+  color: "#4b5563",
+  lineHeight: "26px",
+  marginBottom: "18px",
 };
 
 const featureList = {
-  margin: "24px 0",
+  margin: "28px 0",
 };
 
 const featureItem = {
@@ -165,6 +185,10 @@ const featureItem = {
   columnGap: "8px",
   marginBottom: "24px",
   alignItems: "flex-start",
+  backgroundColor: "#f8fafc",
+  borderRadius: "12px",
+  padding: "20px 24px",
+  border: "1px solid #e2e8f0",
 };
 
 const featureIcon = {
@@ -175,28 +199,29 @@ const featureIcon = {
 const featureTitle = {
   fontSize: "18px",
   fontWeight: "600",
-  color: "#333",
+  color: "#1f2937",
   margin: "0 0 8px 0",
 };
 
 const featureDescription = {
   fontSize: "14px",
-  color: "#666",
-  lineHeight: "20px",
+  color: "#6b7280",
+  lineHeight: "22px",
   margin: "0",
 };
 
 const button = {
-  backgroundColor: "#4f46e5",
-  borderRadius: "8px",
+  backgroundColor: "#4338ca",
+  borderRadius: "10px",
   color: "#fff",
   fontSize: "16px",
   fontWeight: "600",
   textDecoration: "none",
   textAlign: "center" as const,
   display: "block",
-  padding: "12px 32px",
-  margin: "24px auto",
+  padding: "14px 32px",
+  margin: "28px auto",
+  boxShadow: "0 12px 28px rgba(67, 56, 202, 0.32)",
 };
 
 const tipsSection = {
@@ -221,15 +246,15 @@ const tipText = {
 };
 
 const hr = {
-  borderColor: "#e6ebf1",
-  margin: "30px 40px",
+  borderColor: "#e5e7eb",
+  margin: "36px 48px 24px",
 };
 
 const footer = {
-  color: "#8898aa",
+  color: "#6b7280",
   fontSize: "12px",
-  lineHeight: "18px",
-  padding: "0 40px",
+  lineHeight: "20px",
+  padding: "0 48px",
   textAlign: "center" as const,
   marginBottom: "12px",
 };
